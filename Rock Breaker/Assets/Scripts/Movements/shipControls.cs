@@ -30,9 +30,8 @@ public class shipControls : MonoBehaviour {
 
 
 
-
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
 		// None
 	}
@@ -46,7 +45,7 @@ public class shipControls : MonoBehaviour {
         // check for user input...
         straightInput = Input.GetAxis("Vertical");
         turnInput = Input.GetAxis("Horizontal");
-	}
+    }
 
 
 

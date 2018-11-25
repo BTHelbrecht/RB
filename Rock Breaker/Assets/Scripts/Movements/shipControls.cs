@@ -45,6 +45,9 @@ public class shipControls : MonoBehaviour {
         // check for user input...
         straightInput = Input.GetAxis("Vertical");
         turnInput = Input.GetAxis("Horizontal");
+
+        // Improved turn , (Inverted), based on time of last frame refrashed
+        transform.Rotate(-Vector3.forward * turnInput * Time.deltaTime * turnThrust);
     }
 
 
@@ -54,8 +57,8 @@ public class shipControls : MonoBehaviour {
     {
         // Ship pointing forward on y-Axis force applied only on y to move ship, * thrust for control of movement
         body.AddRelativeForce(Vector2.up * straightInput);
-        // Add teurn torque on z-Axis, (Inverted)
-        body.AddTorque(-turnInput);
+        // Add teurn torque on z-Axis, (Inverted), based on frame refresh 
+        //(COMMMENTED OUT)*Alterante movement option, is unwieldy but works    >>   *body.AddTorque(-turnInput);
 
     }
 }

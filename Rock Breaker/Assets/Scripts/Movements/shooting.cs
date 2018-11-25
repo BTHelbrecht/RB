@@ -1,6 +1,6 @@
 ﻿/*
 SHIPSOOTING
-sgooting.cs
+shooting.cs
 JERARD CARNEY
 NOVEMBER.24.2018
 */

@@ -18,9 +18,11 @@ public class scoring : MonoBehaviour {
 // Public Variables
     // Variable for text box score
     public Text scoreText;
+    // Game over panel game object
+    public GameObject GameOver_P;
 
 
-// Private Variables
+    // Private Variables
     // Variable int to hold score
     private int score;
 
@@ -53,5 +55,12 @@ public class scoring : MonoBehaviour {
         score += pointsRecieved;
         // Put score into scroe box
         scoreText.text = "SCORE: " + score;
+
+        // Win Condition
+        if (score == 18)
+        {
+            // Displays game over menu
+            GameOver_P.SetActive(true);
+        }
     }
 }

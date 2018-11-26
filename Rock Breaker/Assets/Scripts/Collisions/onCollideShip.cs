@@ -22,6 +22,14 @@ public class onCollideShip : MonoBehaviour {
     public int lives;
     // Vaariable to hold text box lives
     public Text livesText;
+    // Access to ship Rigidbody
+    public Rigidbody2D body;
+    // Original art ship
+    public Sprite originalArt;
+    // Clean respawn alt. art ship
+    public Sprite respawnArt;
+    // Game over panel game object
+    public GameObject GameOver_P;
 
 
 
@@ -41,6 +49,33 @@ public class onCollideShip : MonoBehaviour {
 
 
 
+    // Updates when ship is dead for 3 seconds, repawn
+    void Respawn()
+    {
+        // stops the ships movement
+        body.velocity = Vector2.zero;
+        // Sets ship location x/y-Axis to 0
+        transform.position = Vector2.zero;
+
+        // Gets the sprite renderer and sets to alt art to show it is safe against collisions
+        SpriteRenderer shipRender = GetComponent<SpriteRenderer>();
+        shipRender.enabled = true;
+        shipRender.sprite = respawnArt;
+
+
+        // Call clean respawn function to not die from spawn on asteroids
+        Invoke("CleanRespawn", 5f);
+       
+    }
+
+    void CleanRespawn()
+    {
+        GetComponent<Collider2D>().enabled = true;
+        GetComponent<SpriteRenderer>().sprite = originalArt;
+    }
+
+
+
     // Updates is called when two non-trigger colliders collide
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -54,13 +89,20 @@ public class onCollideShip : MonoBehaviour {
             // Lives drop down by 1
             lives--;
             livesText.text = "LIVES: " + lives;
-            // Destroy the ship
-            Destroy(gameObject);
+            // disables the ships collider and renderer for death porpuses
+            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<Collider2D>().enabled = false;
+            // After 3 seconds call respawn function
+            Invoke("Respawn", 1.5f);
         }
 
         // Condition >> if cause death and live are reduced to 0 >> GAME OVER
         if(lives <= 0)
         {
+            // Destroys the ship
+            CancelInvoke();
+            // Displays game over menu
+            GameOver_P.SetActive(true);
 
         }
     }
